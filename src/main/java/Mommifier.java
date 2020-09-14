@@ -16,7 +16,10 @@ public class Mommifier {
 
     private StringBuilder insertMommy(String string) {
         StringBuilder stringBuilder = new StringBuilder(string);
-        stringBuilder.insert(stringBuilder.indexOf("ee"), "mommy");
+        stringBuilder.insert(stringBuilder.indexOf("ee") + 1, "mommy");
+        if (haveContinuousSetOfVowels(stringBuilder.toString())) {
+            return insertMommy(stringBuilder.toString());
+        }
         return stringBuilder;
     }
 
@@ -28,7 +31,7 @@ public class Mommifier {
         int vowelsCount = 0;
         char[] stringToChar = string.toCharArray();
         for (int i = 0; i < stringToChar.length; ++i) {
-            if (isaVowels(stringToChar[i])) {
+            if (isVowels(stringToChar[i])) {
                 vowelsCount++;
             }
         }
@@ -36,10 +39,10 @@ public class Mommifier {
     }
 
     private boolean moreThanThirtyPercent(int vowelsCount, char[] stringToChar) {
-        return 10*(vowelsCount / stringToChar.length) > 3;
+        return 10*(vowelsCount / stringToChar.length) < 3;
     }
 
-    private boolean isaVowels(char c) {
+    private boolean isVowels(char c) {
         return c == 'a' || c == 'e' || c == 'i'
                 || c == 'o' || c == 'u';
     }
